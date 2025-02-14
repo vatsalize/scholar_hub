@@ -27,10 +27,6 @@ public class Subject {
     @Column(name = "attended_classes")
     private int attendedClasses;
 
-    @Column(name = "attendance_percentage", precision = 2, insertable = false, updatable = false)
-    // Generated column
-    private double attendancePercentage;
-
     // Getters and setters for all fields
 
     public UUID getId() {
@@ -71,10 +67,6 @@ public class Subject {
 
     public void setAttendedClasses(int attendedClasses) {
         this.attendedClasses = attendedClasses;
-    }
-
-    public double getAttendancePercentage() {
-        return attendancePercentage;
     }
 
 }
