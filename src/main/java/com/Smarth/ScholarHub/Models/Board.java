@@ -1,11 +1,13 @@
 package com.Smarth.ScholarHub.Models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "boards")
+@Data
 public class Board {
 
     @Id
@@ -19,29 +21,5 @@ public class Board {
     @ManyToOne // Many boards can belong to one user
     @JoinColumn(name = "user_id") // Foreign key column
     private User user;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
 }
