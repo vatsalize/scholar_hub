@@ -15,5 +15,6 @@ public class AllProjectsResponse {
     private String description;
     private String role;
     private List<SearchResponse> members;
+    private String leaderEmail;
 
 }
