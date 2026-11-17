@@ -1,0 +1,101 @@
+package com.java_project.ScholarHub.Controllers;
+
+import com.java_project.ScholarHub.DTOs.MessageResponse;
+import com.java_project.ScholarHub.DTOs.TodoTaskRequest;
+import com.java_project.ScholarHub.DTOs.TodoTaskResponse;
+import com.java_project.ScholarHub.Models.Board;
+import com.java_project.ScholarHub.Models.TodoTask;
+import com.java_project.ScholarHub.Services.TodoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequestMapping("/api/todo")
+public class TodoController {
+
+    @Autowired
+    TodoService todoService;
+
+    @PostMapping("/boards/add/{userId}/{boardName}")
+    public ResponseEntity<?> addBoard(@PathVariable("userId") UUID userId,
+                                      @PathVariable("boardName") String boardName) {
+        Board board;
+        try {
+            board = todoService.addBoard(userId, boardName);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body(new MessageResponse(ex.getMessage()));
+        }
+        return ResponseEntity.ok(board);
+    }
+
+    @PutMapping("/boards/update/{boardId}/{boardName}")
+    public ResponseEntity<?> updateBoard(@PathVariable("boardId") UUID boardId,
+                                         @PathVariable("boardName") String boardName) {
+        try {
+            todoService.updateBoard(boardId, boardName);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body(new MessageResponse(ex.getMessage()));
+        }
+        return ResponseEntity.ok(new MessageResponse("Board updated successfully"));
+    }
+
+    @DeleteMapping("/boards/delete/{boardId}")
+    public ResponseEntity<?> deleteBoard(@PathVariable("boardId") UUID boardId) {
+        try {
+            todoService.deleteBoard(boardId);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body(new MessageResponse(ex.getMessage()));
+        }
+        return ResponseEntity.ok(new MessageResponse("Board deleted successfully"));
+    }
+
+    @PostMapping({"/task/add", "task/add"})
+    public ResponseEntity<?> addTodoTask(@RequestBody TodoTaskRequest todoTaskRequest) {
+        TodoTask todoTask;
+        try {
+            todoTask = todoService.addTask(todoTaskRequest);
+        } catch (RuntimeException ex) {
+            System.out.println(ex.getMessage());
+            return ResponseEntity.badRequest()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new MessageResponse(ex.getMessage()));
+        }
+        return ResponseEntity.ok(todoTask);
+    }
+
+    @GetMapping("/task/getAll")
+    public List<TodoTaskResponse> getAllTasksDefault() {
+        return todoService.getAllTasks();
+    }
+
+    @GetMapping("/task/getAll/{userId}")
+    public List<TodoTaskResponse> getAllTasksForUser(@PathVariable("userId") UUID userId) {
+        return todoService.getAllTasksForUser(userId);
+    }
+
+    @DeleteMapping("/task/delete/{taskId}")
+    public ResponseEntity<?> deleteTask(@PathVariable("taskId") UUID taskId) {
+        try {
+            todoService.deleteTask(taskId);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body(new MessageResponse(ex.getMessage()));
+        }
+        return ResponseEntity.ok(new MessageResponse("Task deleted successfully"));
+    }
+
+    @GetMapping("/boards/getAll")
+    public List<Board> getAllBoardsDefault() {
+        return todoService.getAllBoardsForUser(null);
+    }
+
+    @GetMapping("/boards/getAll/{userId}")
+    public List<Board> getAllBoardsForUser(@PathVariable("userId") UUID userId) {
+        return todoService.getAllBoardsForUser(userId);
+    }
+
+}

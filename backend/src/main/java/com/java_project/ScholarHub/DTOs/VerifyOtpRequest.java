@@ -1,0 +1,12 @@
+package com.java_project.ScholarHub.DTOs;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class VerifyOtpRequest {
+
+    private String otp;
+
+}

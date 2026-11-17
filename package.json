@@ -1,0 +1,12 @@
+{
+  "name": "scholar-hub",
+  "version": "1.0.0",
+  "description": "ScholarHub Full-Stack Application",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "backend": "mvnw.cmd spring-boot:run -pl backend",
+    "install:frontend": "npm install --prefix frontend"
+  }
+}
