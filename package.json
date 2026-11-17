@@ -11,7 +11,8 @@
     "setup": "node backend/scripts/setup.js",
     "backend": "mvnw.cmd spring-boot:run -pl backend",
     "frontend": "npm run dev --prefix frontend",
-    "build": "npm run build --prefix frontend",
+    "postinstall": "npm install --prefix frontend",
+    "build": "npm install --prefix frontend && npm run build --prefix frontend",
     "install:frontend": "npm install --prefix frontend",
     "install:all": "node backend/scripts/setup.js"
   }
