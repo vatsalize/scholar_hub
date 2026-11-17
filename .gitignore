@@ -17,9 +17,11 @@ yarn-debug.log*
 yarn-error.log*
 
 ### H2 Database Data ###
-data/
+/data/
+/backend/data/
 *.mv.db
 *.trace.db
+*.lock.db
 
 ### STS ###
 .apt_generated

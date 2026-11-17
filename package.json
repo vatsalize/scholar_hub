@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "ScholarHub Full-Stack Application",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "npm run dev --prefix frontend",
-    "build": "npm run build --prefix frontend",
+    "prestart": "node backend/scripts/setup.js",
+    "start": "node backend/scripts/start.js",
+    "dev": "node backend/scripts/start.js",
+    "setup": "node backend/scripts/setup.js",
     "backend": "mvnw.cmd spring-boot:run -pl backend",
-    "install:frontend": "npm install --prefix frontend"
+    "frontend": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "install:frontend": "npm install --prefix frontend",
+    "install:all": "node backend/scripts/setup.js"
   }
 }

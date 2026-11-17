@@ -1,0 +1,17 @@
+{
+  "name": "scholarhub-backend",
+  "version": "1.0.0",
+  "description": "ScholarHub Backend & Full-Stack Platform Runner",
+  "type": "module",
+  "scripts": {
+    "prestart": "node scripts/setup.js",
+    "start": "node scripts/start.js",
+    "dev": "node scripts/start.js",
+    "setup": "node scripts/setup.js",
+    "backend": "node scripts/start.js --backend-only",
+    "frontend": "npm run dev --prefix ../frontend"
+  },
+  "keywords": ["scholarhub", "springboot", "react", "fullstack"],
+  "author": "ScholarHub Team",
+  "license": "ISC"
+}
